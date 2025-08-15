@@ -97,6 +97,10 @@ http://localhost:5173
 ---
 
 ## Screenshots
+![Landing Page](https://github.com/user-attachments/assets/0acc2c9a-61b8-470f-9ff0-d546ef190952)
+![Login Page](https://github.com/user-attachments/assets/87dd1d31-aadc-4768-979e-001f935e284f)
+![Quiz Page](https://github.com/user-attachments/assets/e77dec9c-a994-436e-a3a1-b57ae62c8bf8)
+![Quiz Page](https://github.com/user-attachments/assets/471ade4e-c11d-46e3-845d-04c8b70700a8)
 
 ---
 <h3 align="center">
