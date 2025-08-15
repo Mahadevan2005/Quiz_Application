@@ -7,11 +7,12 @@
 ## Table of Contents
 
 - [Project Overview](#project-overview)  
-- [Tech Stack](#tech-stack)  
+- [Tech Stack](#tech-stack) 
+- [Features](#features)  
 - [Project Structure](#project-structure)  
 - [Installation & Setup](#installation--setup)  
 - [Usage](#usage)
-- [Live in action](#live-in-action)  
+- [Screenshots](#screenshots)  
 
 ---
 
@@ -29,6 +30,10 @@ The app is built for **high usability and engagement**, combining **animation, c
 - **State Management:** React Hooks  
 - **Styling:** MUI System + Custom CSS  
 - **Deployment Ready:** Vercel
+
+---
+
+## Features
 
 The app is fully **responsive** and **lightning-fast**, featuring:  
 - A **30-minute countdown timer**  
