@@ -1,26 +1,21 @@
-import { useState, useEffect, useRef } from "react";
+import { Stack, Typography, LinearProgress, Button } from "@mui/material";
+import { formatTime } from "../utils/helpers";
 
-export function useCountdown(totalSeconds, onTimeUp) {
-  const [timeLeft, setTimeLeft] = useState(totalSeconds);
-  const startTimeRef = useRef(Date.now());
-  const intervalRef = useRef(null);
+export default function TimerBar({ timeLeft, onSubmit }) {
+  const total = 30 * 60; // 30 mins in seconds
+  const progress = (timeLeft / (total * 1000)) * 100;
 
-  useEffect(() => {
-    intervalRef.current = setInterval(() => {
-      const elapsed = Math.floor((Date.now() - startTimeRef.current) / 1000);
-      const remaining = totalSeconds - elapsed;
-
-      if (remaining <= 0) {
-        setTimeLeft(0);
-        clearInterval(intervalRef.current);
-        onTimeUp();
-      } else {
-        setTimeLeft(remaining);
-      }
-    }, 250); // update frequently to prevent skipping
-
-    return () => clearInterval(intervalRef.current);
-  }, [totalSeconds, onTimeUp]);
-
-  return timeLeft;
+  return (
+    <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
+      <Typography variant="h6">⏳ {formatTime(timeLeft)}</Typography>
+      <LinearProgress
+        variant="determinate"
+        value={progress}
+        sx={{ flex: 1, mx: 2, height: 8, borderRadius: 5 }}
+      />
+      <Button variant="contained" color="error" onClick={onSubmit}>
+        Submit
+      </Button>
+    </Stack>
+  );
 }
