@@ -1,5 +1,7 @@
 import { Box, Typography, Button, Stack, Card, CardContent, Chip } from "@mui/material";
 import { motion } from "framer-motion";
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 export default function ReportTable({ questions, answers, score, onRestart, email }) {
   return (
@@ -16,15 +18,11 @@ export default function ReportTable({ questions, answers, score, onRestart, emai
       }}
     >
       {/* Header */}
-      <motion.div
-        initial={{ y: -40, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8 }}
-      >
+      <motion.div initial={{ y: -40, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.8 }}>
         <Typography variant="h3" sx={{ fontWeight: 700, mb: 1, textAlign: "center" }}>
           Quiz Report
         </Typography>
-        <Typography variant="h6" sx={{ mb: 4, opacity: 0.8, textAlign: "center" }}>
+        <Typography variant="h6" sx={{ mb: 4, opacity: 0.85, textAlign: "center" }}>
           {email} — Score: {score} / {questions.length}
         </Typography>
       </motion.div>
@@ -48,7 +46,7 @@ export default function ReportTable({ questions, answers, score, onRestart, emai
                   borderRadius: 3,
                   background: "#ffffff",
                   p: 2,
-                  border: `1px solid ${isCorrect ? "#4caf50" : "#f44336"}`,
+                  border: `2px solid ${isCorrect ? "#2196f3" : "#ff9800"}`,
                   boxShadow: "0 6px 18px rgba(0,0,0,0.08)",
                 }}
               >
@@ -56,16 +54,23 @@ export default function ReportTable({ questions, answers, score, onRestart, emai
                   <Typography variant="subtitle1" sx={{ mb: 1, fontWeight: 600 }}>
                     {idx + 1}. <span dangerouslySetInnerHTML={{ __html: q.question }} />
                   </Typography>
-                  <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
+                  <Stack direction={{ xs: "column", sm: "row" }} spacing={2} alignItems="center">
                     <Chip
+                      icon={isCorrect ? <CheckCircleIcon /> : <CancelIcon />}
                       label={<span dangerouslySetInnerHTML={{ __html: your ?? "<i>Not answered</i>" }} />}
-                      color={isCorrect ? "success" : "error"}
-                      variant="filled"
+                      sx={{
+                        backgroundColor: isCorrect ? "#e3f2fd" : "#fff3e0",
+                        color: isCorrect ? "#2196f3" : "#ff9800",
+                        fontWeight: 600,
+                      }}
                     />
                     <Chip
                       label={<span dangerouslySetInnerHTML={{ __html: correct }} />}
-                      color="info"
-                      variant="outlined"
+                      sx={{
+                        backgroundColor: "#f5f5f5",
+                        color: "#616161",
+                        fontWeight: 600,
+                      }}
                     />
                   </Stack>
                 </CardContent>
@@ -76,11 +81,7 @@ export default function ReportTable({ questions, answers, score, onRestart, emai
       </Stack>
 
       {/* Restart Button */}
-      <motion.div
-        initial={{ y: 60, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.5 }}
-      >
+      <motion.div initial={{ y: 60, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.5 }}>
         <Button
           onClick={onRestart}
           sx={{
