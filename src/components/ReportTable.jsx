@@ -1,86 +1,107 @@
-import { Card, CardContent, Typography, Table, TableBody, TableCell, TableHead, TableRow, Button, Box, Chip } from "@mui/material";
+import { Box, Typography, Button, Stack, Card, CardContent, Chip } from "@mui/material";
+import { motion } from "framer-motion";
 
 export default function ReportTable({ questions, answers, score, onRestart, email }) {
   return (
-    <Box sx={{ p: { xs: 2, sm: 4 }, display: "flex", justifyContent: "center" }}>
-      <Card
-        sx={{
-          width: "100%",
-          maxWidth: 900,
-          borderRadius: 4,
-          boxShadow: "0 12px 36px rgba(0,0,0,0.15)",
-          background: "linear-gradient(145deg, #1e1e1e, #2c2c2c)",
-          color: "#fff",
-        }}
+    <Box
+      sx={{
+        minHeight: "100vh",
+        px: { xs: 2, sm: 4 },
+        py: 6,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        background: "linear-gradient(135deg, #1f1c2c, #928dab)",
+        color: "#fff",
+      }}
+    >
+      {/* Header */}
+      <motion.div
+        initial={{ y: -40, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8 }}
       >
-        <CardContent>
-          <Typography variant="h4" gutterBottom textAlign="center" sx={{ fontWeight: 800, mb: 1 }}>
-            Quiz Report
-          </Typography>
-          <Typography variant="h6" textAlign="center" gutterBottom sx={{ mb: 3, opacity: 0.85 }}>
-            {email} — Score: {score} / {questions.length}
-          </Typography>
+        <Typography variant="h3" sx={{ fontWeight: 900, mb: 1, textAlign: "center" }}>
+          Quiz Report
+        </Typography>
+        <Typography variant="h6" sx={{ mb: 4, opacity: 0.85, textAlign: "center" }}>
+          {email} — Score: {score} / {questions.length}
+        </Typography>
+      </motion.div>
 
-          {/* Responsive Table */}
-          <Box sx={{ overflowX: "auto" }}>
-            <Table size="small" sx={{ minWidth: 600 }}>
-              <TableHead>
-                <TableRow sx={{ backgroundColor: "rgba(255,255,255,0.1)" }}>
-                  <TableCell>#</TableCell>
-                  <TableCell>Question</TableCell>
-                  <TableCell>Your Answer</TableCell>
-                  <TableCell>Correct Answer</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {questions.map((q, idx) => {
-                  const your = answers[idx];
-                  const ok = your === q.correct_answer;
-                  return (
-                    <TableRow key={idx} sx={{ "&:nth-of-type(odd)": { backgroundColor: "rgba(255,255,255,0.05)" } }}>
-                      <TableCell>{idx + 1}</TableCell>
-                      <TableCell sx={{ maxWidth: 250, wordBreak: "break-word" }}>
-                        <span dangerouslySetInnerHTML={{ __html: q.question }} />
-                      </TableCell>
-                      <TableCell>
-                        <Chip
-                          label={<span dangerouslySetInnerHTML={{ __html: your ?? "<i>Not answered</i>" }} />}
-                          color={ok ? "success" : "error"}
-                          variant="filled"
-                          size="small"
-                        />
-                      </TableCell>
-                      <TableCell sx={{ maxWidth: 200, wordBreak: "break-word" }}>
-                        <span dangerouslySetInnerHTML={{ __html: q.correct_answer }} />
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
-            </Table>
-          </Box>
+      {/* Questions */}
+      <Stack spacing={3} sx={{ width: "100%", maxWidth: 800 }}>
+        {questions.map((q, idx) => {
+          const your = answers[idx];
+          const correct = q.correct_answer;
+          const isCorrect = your === correct;
 
-          {/* Restart Button */}
-          <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
-            <Button
-              variant="contained"
-              onClick={onRestart}
-              sx={{
-                px: 5,
-                py: 1.5,
-                borderRadius: 3,
-                fontSize: { xs: "0.9rem", sm: "1.1rem" },
-                background: "linear-gradient(90deg, #ff4b2b, #ff416c)",
-                "&:hover": {
-                  background: "linear-gradient(90deg, #ff416c, #ff4b2b)",
-                },
-              }}
+          return (
+            <motion.div
+              key={idx}
+              initial={{ y: 40, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: idx * 0.1 }}
             >
-              Restart Quiz
-            </Button>
-          </Box>
-        </CardContent>
-      </Card>
+              <Card
+                sx={{
+                  borderRadius: 3,
+                  background: "rgba(255,255,255,0.05)",
+                  backdropFilter: "blur(8px)",
+                  p: 2,
+                  border: `1px solid ${isCorrect ? "limegreen" : "tomato"}`,
+                }}
+              >
+                <CardContent>
+                  <Typography variant="subtitle1" sx={{ mb: 1, fontWeight: 600 }}>
+                    {idx + 1}. <span dangerouslySetInnerHTML={{ __html: q.question }} />
+                  </Typography>
+                  <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
+                    <Chip
+                      label={<span dangerouslySetInnerHTML={{ __html: your ?? "<i>Not answered</i>" }} />}
+                      color={isCorrect ? "success" : "error"}
+                      variant="filled"
+                    />
+                    <Chip
+                      label={<span dangerouslySetInnerHTML={{ __html: correct }} />}
+                      color="info"
+                      variant="outlined"
+                    />
+                  </Stack>
+                </CardContent>
+              </Card>
+            </motion.div>
+          );
+        })}
+      </Stack>
+
+      {/* Restart Button */}
+      <motion.div
+        initial={{ y: 60, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0.5 }}
+      >
+        <Button
+          onClick={onRestart}
+          sx={{
+            mt: 6,
+            px: 6,
+            py: 1.8,
+            borderRadius: 3,
+            fontSize: "1.25rem",
+            fontWeight: 700,
+            color: "#fff",
+            background: "linear-gradient(90deg, #ff4b2b, #ff416c)",
+            boxShadow: "0 8px 32px rgba(0,0,0,0.5)",
+            "&:hover": {
+              background: "linear-gradient(90deg, #ff416c, #ff4b2b)",
+              transform: "scale(1.05)",
+            },
+          }}
+        >
+          Restart Quiz
+        </Button>
+      </motion.div>
     </Box>
   );
 }
