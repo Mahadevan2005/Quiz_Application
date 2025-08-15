@@ -11,8 +11,8 @@ export default function ReportTable({ questions, answers, score, onRestart, emai
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        background: "linear-gradient(135deg, #1f1c2c, #928dab)",
-        color: "#fff",
+        background: "linear-gradient(135deg, #f0f4ff, #d9e4ff)",
+        color: "#1a1a1a",
       }}
     >
       {/* Header */}
@@ -21,10 +21,10 @@ export default function ReportTable({ questions, answers, score, onRestart, emai
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8 }}
       >
-        <Typography variant="h3" sx={{ fontWeight: 900, mb: 1, textAlign: "center" }}>
+        <Typography variant="h3" sx={{ fontWeight: 700, mb: 1, textAlign: "center" }}>
           Quiz Report
         </Typography>
-        <Typography variant="h6" sx={{ mb: 4, opacity: 0.85, textAlign: "center" }}>
+        <Typography variant="h6" sx={{ mb: 4, opacity: 0.8, textAlign: "center" }}>
           {email} — Score: {score} / {questions.length}
         </Typography>
       </motion.div>
@@ -46,10 +46,10 @@ export default function ReportTable({ questions, answers, score, onRestart, emai
               <Card
                 sx={{
                   borderRadius: 3,
-                  background: "rgba(255,255,255,0.05)",
-                  backdropFilter: "blur(8px)",
+                  background: "#ffffff",
                   p: 2,
-                  border: `1px solid ${isCorrect ? "limegreen" : "tomato"}`,
+                  border: `1px solid ${isCorrect ? "#4caf50" : "#f44336"}`,
+                  boxShadow: "0 6px 18px rgba(0,0,0,0.08)",
                 }}
               >
                 <CardContent>
@@ -88,13 +88,13 @@ export default function ReportTable({ questions, answers, score, onRestart, emai
             px: 6,
             py: 1.8,
             borderRadius: 3,
-            fontSize: "1.25rem",
+            fontSize: "1.2rem",
             fontWeight: 700,
             color: "#fff",
-            background: "linear-gradient(90deg, #ff4b2b, #ff416c)",
-            boxShadow: "0 8px 32px rgba(0,0,0,0.5)",
+            background: "linear-gradient(90deg, #3f51b5, #6573c3)",
+            boxShadow: "0 8px 24px rgba(0,0,0,0.15)",
             "&:hover": {
-              background: "linear-gradient(90deg, #ff416c, #ff4b2b)",
+              background: "linear-gradient(90deg, #6573c3, #3f51b5)",
               transform: "scale(1.05)",
             },
           }}
